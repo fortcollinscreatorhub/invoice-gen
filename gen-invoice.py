@@ -102,6 +102,9 @@ paid_map = {
 }
 
 for value_row in fi.readlines():
+    if not value_row.strip():
+        continue
+
     values = value_row.split('\t')
     name = values[col_indices[COL_NAME]].strip()
     email = values[col_indices[COL_EMAIL]].strip()
