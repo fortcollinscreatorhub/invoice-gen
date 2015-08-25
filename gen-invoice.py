@@ -48,11 +48,13 @@ COL_NAME = 0
 COL_EMAIL = 1
 COL_RATE = 2
 COL_PAID = 3
+COL_ACTIVE = 4
 col_headings = {
-    COL_NAME:  'Name',
-    COL_EMAIL: 'Email',
-    COL_RATE:  'Monthly rate',
-    COL_PAID:  month,
+    COL_NAME:   'Name',
+    COL_EMAIL:  'Email',
+    COL_RATE:   'Monthly rate',
+    COL_PAID:   month,
+    COL_ACTIVE: 'Active?',
 }
 col_indices = {}
 for (n, heading) in col_headings.items():
@@ -68,9 +70,12 @@ def gen_invoice(name, email, rate, fnum):
     msg.set_payload('''\
 Dear %(name)s,
 
-This is a friendly reminder that your Fort Collins Creator Hub monthly
-membership fee of $%(rate)s for %(month)s is due by the first of that month.
-If you've already paid, please do accept my apologies.
+This is a friendly semi-automated reminder that your Fort Collins Creator
+Hub monthly membership fee of $%(rate)s for %(month)s is due by the first
+of that month. If you've already paid, please do accept my apologies. If
+you've configured automatic payment via our credit card billing system or
+your bank's billpay, please consider this a reminder that you will soon
+be charged.
 
 You can choose to pay by check (or bank billpay) made out to Fort Collins
 Creator Hub and sent to:
@@ -110,6 +115,10 @@ for value_row in fi.readlines():
     email = values[col_indices[COL_EMAIL]].strip()
     rate = values[col_indices[COL_RATE]].strip()
     paid = values[col_indices[COL_PAID]].strip()
+    active = values[col_indices[COL_ACTIVE]].strip()
+
+    if active != "y":
+        continue
 
     while not paid in paid_map:
         is_paid_text = input('Is "%s" paid? (y/n): ' % paid)
