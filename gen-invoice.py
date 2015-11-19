@@ -62,7 +62,7 @@ for (n, heading) in col_headings.items():
 
 def gen_invoice(name, email, rate, fnum):
     msg = Message()
-    msg.add_header('From', 'Stephen Warren <swarren@wwwdotorg.org>')
+    msg.add_header('From', 'FCCH Billing <billing@fortcollinscreatorhub.org>')
     msg.add_header('To', '"' + name + '" <' + email + '>')
     msg.add_header('Cc', '"FCCH Billing" <billing@fortcollinscreatorhub.org>')
     msg.add_header('Subject', 'Fort Collins Creator Hub ' + month + ' Invoice')
@@ -104,6 +104,7 @@ fnum = 0
 # FIXME: We should probably persist this in a config file
 paid_map = {
     '': False,
+    '-': True,
 }
 
 for value_row in fi.readlines():

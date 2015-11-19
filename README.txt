@@ -9,7 +9,10 @@ In a web browser, open the membership spreadsheet, and select-all.
 Paste it unchanged into a new plain text file e.g. data.txt.
 
 rm *.email
-./gen-invoice.py data.txt 'Jul 2015'
+
+Linux: ./gen-invoice.py data.txt 'Jul 2015'
+Windows: ./gen-invoice.bat data.txt 'Jul 2015'
+
 git send-email *.email
 
 Give an empty answer to:
